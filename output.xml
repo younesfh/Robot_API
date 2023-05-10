@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.2 on win32)" generated="20230509 21:47:49.854" rpa="false" schemaversion="3">
+<suite id="s1" name="Students Api" source="c:\Users\youne\Desktop\robot_project_api\test_cases\students_api.robot">
+<test id="s1-t1" name="TC01_GetSingleStudent" line="9">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Mysession</arg>
+<arg>${URL-base}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230509 21:47:50.115" level="INFO">Creating Session using : alias=Mysession, url=https://thetestingworldapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230509 21:47:50.115" endtime="20230509 21:47:50.118"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${Response}</var>
+<arg>Mysession</arg>
+<arg>/api/studentsDetails/7478328</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230509 21:47:51.243" level="INFO">GET Request : url=https://thetestingworldapi.com/api/studentsDetails/7478328 
+ path_url=/api/studentsDetails/7478328 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230509 21:47:51.243" level="INFO">GET Response : url=https://thetestingworldapi.com/api/studentsDetails/7478328 
+ status=200, reason=OK 
+ headers={'Cache-Control': 'no-cache', 'Pragma': 'no-cache', 'Content-Type': 'application/json; charset=utf-8', 'Expires': '-1', 'Server': 'Microsoft-IIS/10.0', 'X-AspNet-Version': '4.0.30319', 'X-Powered-By': 'ASP.NET', 'X-Powered-By-Plesk': 'PleskWin', 'Date': 'Wed, 10 May 2023 01:47:43 GMT', 'Content-Length': '125'} 
+ body={"status":"true","data":{"id":7478328,"first_name":"Younes","middle_name":"Lee","last_name":"Fhamni","date_of_birth":"java"}} 
+ </msg>
+<msg timestamp="20230509 21:47:51.243" level="INFO">C:\Users\youne\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'thetestingworldapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230509 21:47:51.244" level="INFO">${Response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230509 21:47:50.119" endtime="20230509 21:47:51.245"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${Response.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230509 21:47:51.246" level="INFO">200</msg>
+<status status="PASS" starttime="20230509 21:47:51.245" endtime="20230509 21:47:51.246"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${Response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230509 21:47:51.247" level="INFO">{"status":"true","data":{"id":7478328,"first_name":"Younes","middle_name":"Lee","last_name":"Fhamni","date_of_birth":"java"}}</msg>
+<status status="PASS" starttime="20230509 21:47:51.246" endtime="20230509 21:47:51.248"/>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<var>${Response_JSON}</var>
+<arg>${Response.content}</arg>
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<msg timestamp="20230509 21:47:51.248" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20230509 21:47:51.250" level="INFO">To JSON using : content={"status":"true","data":{"id":7478328,"first_name":"Younes","middle_name":"Lee","last_name":"Fhamni","date_of_birth":"java"}} </msg>
+<msg timestamp="20230509 21:47:51.250" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20230509 21:47:51.250" level="INFO">${Response_JSON} = {'status': 'true', 'data': {'id': 7478328, 'first_name': 'Younes', 'middle_name': 'Lee', 'last_name': 'Fhamni', 'date_of_birth': 'java'}}</msg>
+<status status="PASS" starttime="20230509 21:47:51.248" endtime="20230509 21:47:51.250"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>@{first_name_list}</var>
+<arg>${Response_JSON}</arg>
+<arg>data.first_name</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20230509 21:47:51.274" level="INFO">@{first_name_list} = [ Younes ]</msg>
+<status status="PASS" starttime="20230509 21:47:51.251" endtime="20230509 21:47:51.274"/>
+</kw>
+<kw name="Get From List" library="Collections">
+<var>${first_name}</var>
+<arg>${first_name_list}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230509 21:47:51.275" level="INFO">${first_name} = Younes</msg>
+<status status="PASS" starttime="20230509 21:47:51.275" endtime="20230509 21:47:51.275"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${first_name}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230509 21:47:51.276" level="INFO">Younes</msg>
+<status status="PASS" starttime="20230509 21:47:51.276" endtime="20230509 21:47:51.276"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${first_name}</arg>
+<arg>Younes</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20230509 21:47:51.277" endtime="20230509 21:47:51.278"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${Response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20230509 21:47:51.279" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20230509 21:47:51.278" endtime="20230509 21:47:51.279"/>
+</kw>
+<status status="PASS" starttime="20230509 21:47:50.113" endtime="20230509 21:47:51.282"/>
+</test>
+<status status="PASS" starttime="20230509 21:47:49.861" endtime="20230509 21:47:51.284"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Students Api">Students Api</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230509 21:47:51.248" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+</errors>
+</robot>
